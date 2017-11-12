@@ -10,8 +10,14 @@ class Examples {
     @Autowired
     SimpleFallback simpleFallback
 
-    @Scheduled(fixedDelay = 3000L)
+    @Autowired
+    TimeoutFallback timeoutFallback
+
+    @Autowired
+    ExternalConfigFallback externalConfigFallback
+
+    @Scheduled(fixedDelay = 2000L)
     void run() {
-        simpleFallback.showExternalMessage()
+        externalConfigFallback.showExternalMessage()
     }
 }

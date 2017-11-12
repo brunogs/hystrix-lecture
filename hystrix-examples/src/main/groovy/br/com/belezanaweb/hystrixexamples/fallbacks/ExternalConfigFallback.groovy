@@ -5,18 +5,20 @@ import br.com.belezanaweb.hystrixexamples.client.ExternalMessageClient
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.cloud.context.config.annotation.RefreshScope
 import org.springframework.stereotype.Component
 
+@RefreshScope
 @Component
-class SimpleFallback {
+class ExternalConfigFallback {
 
-    @Value('${app.message.default}')
+    @Value('${app.messages.default}')
     String messageDefault
 
     @Autowired
     ExternalMessageClient externalMessageClient
 
-    @HystrixCommand(fallbackMethod = 'showDefaultMessage')
+    @HystrixCommand(commandKey = 'showMessage', fallbackMethod = 'showDefaultMessage')
     def showExternalMessage() {
         Logger.log(externalMessageClient.messages.head())
     }
@@ -24,4 +26,5 @@ class SimpleFallback {
     def showDefaultMessage() {
         Logger.log(messageDefault)
     }
+
 }

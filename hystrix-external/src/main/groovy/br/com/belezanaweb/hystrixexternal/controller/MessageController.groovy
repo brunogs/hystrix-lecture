@@ -8,6 +8,7 @@ class MessageController {
 
     @GetMapping('external-messages')
     List<String> getMessages() {
+        Thread.sleep(500)
         ['Mais com menos']
     }
 }
