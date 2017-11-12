@@ -1,0 +1,9 @@
+hystrix:
+  command:
+    showMessage:
+      execution.isolation.thread.timeoutInMilliseconds: 700
+      circuitBreaker.forceOpen: true
+
+app:
+  messages:
+    default: 'Do or do not'
